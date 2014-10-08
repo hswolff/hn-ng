@@ -1,0 +1,11 @@
+{
+  "name": "hn-ng",
+  "private": false,
+  "dependencies": {
+    "angular": "1.3.0-rc.4",
+    "angular-animate": "1.3.0-rc.4",
+    "angular-ui-router": "0.2.11",
+    "lodash": "2.4.1"
+  },
+  "devDependencies": {}
+}
