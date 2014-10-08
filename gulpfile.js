@@ -23,13 +23,24 @@ gulp.task('scripts', function () {
         .pipe($.size());
 });
 
-gulp.task('html', ['styles', 'scripts'], function () {
+gulp.task('ngtemplates', function () {
+    return gulp.src('app/views/**/*.html')
+        .pipe($.angularTemplatecache({
+            module: 'hn-ng',
+            root: '/views/',
+        }))
+        .pipe(gulp.dest('.tmp/views'))
+        .pipe($.size());
+});
+
+gulp.task('html', ['styles', 'scripts', 'ngtemplates'], function () {
     var jsFilter = $.filter('**/*.js');
     var cssFilter = $.filter('**/*.css');
 
     return gulp.src('app/*.html')
         .pipe($.useref.assets({searchPath: '{.tmp,app}'}))
         .pipe(jsFilter)
+        .pipe($.ngAnnotate())
         .pipe($.uglify())
         .pipe(jsFilter.restore())
         .pipe(cssFilter)
@@ -38,6 +49,16 @@ gulp.task('html', ['styles', 'scripts'], function () {
         .pipe($.useref.restore())
         .pipe($.useref())
         .pipe(gulp.dest('dist'))
+        .pipe($.size());
+});
+
+gulp.task('combinetemplates', ['html'], function () {
+    return gulp.src([
+            'dist/scripts/main.js',
+            '.tmp/views/templates.js'
+        ])
+        .pipe($.concat('main.js'))
+        .pipe(gulp.dest('dist/scripts/'))
         .pipe($.size());
 });
 
@@ -69,7 +90,7 @@ gulp.task('clean', function () {
     return gulp.src(['.tmp', 'dist'], { read: false }).pipe($.clean());
 });
 
-gulp.task('build', ['html', 'images', 'fonts', 'extras']);
+gulp.task('build', ['combinetemplates', 'html', 'images', 'fonts', 'extras']);
 
 gulp.task('default', ['clean'], function () {
     gulp.start('build');
