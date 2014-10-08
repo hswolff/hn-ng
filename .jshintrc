@@ -20,6 +20,7 @@
     "jquery": true,
     "globals": {
         "angular": false,
-        "_": false
+        "_": false,
+        "Firebase": false
     }
 }
