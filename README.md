@@ -6,9 +6,10 @@ Hacker News made in angularjs.
 
 
 **Tools Used**
-* Yeoman
-* Angularjs
-* Firebase
+* [Yeoman](http://yeoman.io/)
+* [Hacker News API](https://github.com/HackerNews/API)
+* [Angularjs](https://angularjs.org/)
+* [Firebase](https://www.firebase.com/)
 
 
 # Build
