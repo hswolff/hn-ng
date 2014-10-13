@@ -214,3 +214,11 @@ gulp.task('watch', ['connect', 'serve', 'watchify'], function () {
     gulp.watch('app/images/**/*', ['images']);
     gulp.watch('bower.json', ['wiredep']);
 });
+
+gulp.task('deploy', function (cb) {
+    gulp.src('dist')
+        .pipe($.subtree())
+        .on('end', function() {
+            del(['dist'], cb);
+        });
+});
