@@ -2,13 +2,16 @@
   "name": "hn-ng",
   "private": false,
   "dependencies": {
-    "angular": "1.3.0-rc.4",
-    "angular-animate": "1.3.0-rc.4",
+    "angular": "1.3.0-rc.5",
+    "angular-animate": "1.3.0-rc.5",
     "angular-ui-router": "0.2.11",
     "lodash": "2.4.1",
     "firebase": "~1.1.0",
     "angularfire": "~0.8.2",
     "angular-moment": "~0.8.2"
   },
-  "devDependencies": {}
+  "devDependencies": {},
+  "resolutions": {
+    "firebase": "~1.1.0"
+  }
 }
