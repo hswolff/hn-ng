@@ -1,7 +1,16 @@
 'use strict';
-// generated on 2014-10-08 using generator-gulp-webapp 0.1.0
 
 var gulp = require('gulp');
+var _ = require('lodash');
+var del = require('del');
+var mainBowerFiles = require('main-bower-files');
+var source = require('vinyl-source-stream');
+var transform = require('vinyl-transform');
+var watchify = require('watchify');
+var browserify = require('browserify');
+var to5Browserify = require('6to5-browserify');
+var browserifyNgannotate = require('browserify-ngannotate');
+var notifier = require('node-notifier');
 
 // load plugins
 var $ = require('gulp-load-plugins')();
@@ -16,11 +25,25 @@ gulp.task('styles', function () {
         .pipe($.size());
 });
 
-gulp.task('scripts', function () {
+gulp.task('scripts-jshint', function () {
     return gulp.src('app/scripts/**/*.js')
         .pipe($.jshint())
         .pipe($.jshint.reporter(require('jshint-stylish')))
         .pipe($.size());
+});
+
+gulp.task('scripts-build', ['scripts-jshint'], function() {
+    var browserified = transform(function(filename) {
+      return browserify(filename)
+        .transform(to5Browserify)
+        .transform(browserifyNgannotate)
+        .bundle();
+    });
+
+    gulp.src(['./app/scripts/main.js'])
+        .pipe(browserified)
+        .pipe($.uglify())
+        .pipe(gulp.dest('./.tmp/scripts/'));
 });
 
 gulp.task('ngtemplates', function () {
@@ -33,14 +56,13 @@ gulp.task('ngtemplates', function () {
         .pipe($.size());
 });
 
-gulp.task('html', ['styles', 'scripts', 'ngtemplates'], function () {
+gulp.task('html', ['styles', 'scripts-build'], function () {
     var jsFilter = $.filter('**/*.js');
     var cssFilter = $.filter('**/*.css');
 
     return gulp.src('app/*.html')
         .pipe($.useref.assets({searchPath: '{.tmp,app}'}))
         .pipe(jsFilter)
-        .pipe($.ngAnnotate())
         .pipe($.uglify())
         .pipe(jsFilter.restore())
         .pipe(cssFilter)
@@ -52,9 +74,9 @@ gulp.task('html', ['styles', 'scripts', 'ngtemplates'], function () {
         .pipe($.size());
 });
 
-gulp.task('combinetemplates', ['html'], function () {
+gulp.task('scripts-and-templates', ['html', 'ngtemplates'], function () {
     return gulp.src([
-            'dist/scripts/main.js',
+            '.tmp/scripts/main.js',
             '.tmp/views/templates.js'
         ])
         .pipe($.concat('main.js'))
@@ -74,7 +96,7 @@ gulp.task('images', function () {
 });
 
 gulp.task('fonts', function () {
-    return $.bowerFiles()
+    return gulp.src(mainBowerFiles())
         .pipe($.filter('**/*.{eot,svg,ttf,woff}'))
         .pipe($.flatten())
         .pipe(gulp.dest('dist/fonts'))
@@ -86,11 +108,11 @@ gulp.task('extras', function () {
         .pipe(gulp.dest('dist'));
 });
 
-gulp.task('clean', function () {
-    return gulp.src(['.tmp', 'dist'], { read: false }).pipe($.clean());
+gulp.task('clean', function(cb) {
+    del(['.tmp', 'dist'], cb);
 });
 
-gulp.task('build', ['combinetemplates', 'html', 'images', 'fonts', 'extras']);
+gulp.task('build', ['scripts-and-templates', 'html', 'images', 'fonts', 'extras']);
 
 gulp.task('default', ['clean'], function () {
     gulp.start('build');
@@ -100,8 +122,8 @@ gulp.task('connect', function () {
     var connect = require('connect');
     var app = connect()
         .use(require('connect-livereload')({ port: 35729 }))
-        .use(connect.static('app'))
         .use(connect.static('.tmp'))
+        .use(connect.static('app'))
         .use(connect.directory('app'));
 
     require('http').createServer(app)
@@ -132,7 +154,49 @@ gulp.task('wiredep', function () {
         .pipe(gulp.dest('app'));
 });
 
-gulp.task('watch', ['connect', 'serve'], function () {
+gulp.task('watchify', function() {
+  var bundler = watchify(browserify('./app/scripts/main.js', _.extend({
+    debug: true
+  }, watchify.args)));
+
+  var broken = false;
+  var needsFixed = false;
+
+  bundler.transform(to5Browserify);
+
+  function rebundle() {
+    return bundler.bundle()
+      // log errors if they happen
+      .on('error', function(err) {
+        $.util.log(err);
+        notifier.notify({
+          'title': 'watchify',
+          'message': 'build error!'
+        });
+        broken = true;
+      })
+      .on('end', function() {
+        if (broken) {
+          needsFixed = true;
+        } else if (needsFixed) {
+          notifier.notify({
+            'title': 'watchify',
+            'message': 'fixed!'
+          });
+          needsFixed = false;
+        }
+        broken = false;
+      })
+      .pipe(source('main.js'))
+      .pipe(gulp.dest('./.tmp/scripts/'));
+  }
+
+  bundler.on('update', rebundle);
+
+  return rebundle();
+});
+
+gulp.task('watch', ['connect', 'serve', 'watchify'], function () {
     var server = $.livereload();
 
     // watch for changes
@@ -140,14 +204,13 @@ gulp.task('watch', ['connect', 'serve'], function () {
     gulp.watch([
         'app/*.html',
         '.tmp/styles/**/*.css',
-        'app/scripts/**/*.js',
+        '.tmp/scripts/**/*.js',
         'app/images/**/*'
     ]).on('change', function (file) {
         server.changed(file.path);
     });
 
     gulp.watch('app/styles/**/*.less', ['styles']);
-    gulp.watch('app/scripts/**/*.js', ['scripts']);
     gulp.watch('app/images/**/*', ['images']);
     gulp.watch('bower.json', ['wiredep']);
 });
