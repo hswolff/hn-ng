@@ -14,67 +14,7 @@
   <body>
     <a href="https://github.com/hswolff/hn-ng"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/652c5b9acfaddf3a9c326fa6bde407b87f7be0f4/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6f72616e67655f6666373630302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png"></a>
 
-    <center ng-controller="HomepageController as home">
-      <table border="0" cellpadding="0" cellspacing="0" width="85%" bgcolor="#F6F6EF">
-        <tbody>
-          <tr ng-include="'/views/header-bar.html'"></tr>
-          <tr style="height:10px">
-            <td></td>
-          </tr>
-
-          <tr>
-            <td>
-              <table border="0" cellpadding="0" cellspacing="0">
-                <tbody>
-
-                  <tr ng-repeat-start="item in home.items">
-                    <td align="right" valign="top" class="title">{{$index + 1}}.</td>
-
-                    <td>
-                      <center>
-                        <a ng-attr-id="up_{{item.id}}" ng-attr-href=
-                        "https://news.ycombinator.com/vote?for={{item.id}}&amp;dir=up&amp;whence=%6e%65%77%73" ng-attr-name=
-                        "up_{{item.id}}"></a>
-
-                        <div class="votearrow" title="upvote"></div><span ng-attr-id=
-                        "down_{{item.id}}"></span>
-                      </center>
-                    </td>
-
-                    <td class="title"><a ng-href="{{item.url}}">{{item.title}}</a>
-                    <span class="comhead">({{item.url | domain}})</span></td>
-                  </tr>
-
-                  <tr>
-                    <td colspan="2"></td>
-
-                    <td class="subtext"><span id="score_8422599">{{item.score}} points</span> by
-                    <a ng-href="https://news.ycombinator.com/user?id={{item.by}}">{{item.by}}</a> <span am-time-ago="item.time * 1000"></span> | <a ng-href=
-                    "https://news.ycombinator.com/item?id={{item.id}}">n/a comments</a></td>
-                  </tr>
-
-                  <tr style="height:5px" ng-repeat-end>
-                    <td></td>
-                  </tr>
-
-                  <tr style="height:10px">
-                    <td></td>
-                  </tr>
-
-                  <tr>
-                    <td colspan="2"></td>
-
-                    <td class="title"><a href="https://news.ycombinator.com/news?p=2" rel="nofollow">More</a></td>
-                  </tr>
-                </tbody>
-              </table>
-            </td>
-          </tr>
-
-          <tr ng-include="'/views/footer-bar.html'"></tr>
-        </tbody>
-      </table>
-    </center>
+    <div ng-include="'/views/main.html'"></div>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
     <script>
