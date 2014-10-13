@@ -134,7 +134,7 @@ gulp.task('connect', function () {
 });
 
 gulp.task('serve', ['connect', 'styles'], function () {
-    if ($.util.env.open !== false) {
+    if ($.util.env.open) {
         require('opn')('http://localhost:9000');
     }
 });
