@@ -5,6 +5,6 @@ angular.module('hn-ng', [
   'angularMoment'
 ]);
 
-import {domain} from './filters/domain';
-import {api} from './services/api';
-import {homepage} from './controllers/homepage';
+import './filters/domain';
+import './services/api';
+import './controllers/homepage';

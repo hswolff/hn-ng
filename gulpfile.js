@@ -165,6 +165,7 @@ gulp.task('watchify', function() {
   var needsFixed = false;
 
   bundler.transform(to5Browserify);
+  bundler.transform(browserifyNgannotate);
 
   function rebundle() {
     return bundler.bundle()
