@@ -134,7 +134,9 @@ gulp.task('connect', function () {
 });
 
 gulp.task('serve', ['connect', 'styles'], function () {
-    require('opn')('http://localhost:9000');
+    if ($.util.env.open !== false) {
+        require('opn')('http://localhost:9000');
+    }
 });
 
 // inject bower components
@@ -202,7 +204,7 @@ gulp.task('watch', ['connect', 'serve', 'watchify'], function () {
     // watch for changes
 
     gulp.watch([
-        'app/*.html',
+        'app/**/*.html',
         '.tmp/styles/**/*.css',
         '.tmp/scripts/**/*.js',
         'app/images/**/*'
