@@ -47,10 +47,10 @@ gulp.task('scripts-build', ['scripts-jshint'], function() {
 });
 
 gulp.task('ngtemplates', function () {
-    return gulp.src('app/views/**/*.html')
+    return gulp.src(['app/**/*.html', '!app/index.html'])
         .pipe($.angularTemplatecache({
             module: 'hn-ng',
-            root: '/views/',
+            root: '/',
         }))
         .pipe(gulp.dest('.tmp/views'))
         .pipe($.size());
