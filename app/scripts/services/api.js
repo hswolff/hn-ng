@@ -1,15 +1,23 @@
-(function() {
 'use strict';
 
-var API = {};
+var PATHS = {};
+PATHS.ROOT = 'https://hacker-news.firebaseio.com/v0/';
+PATHS.TOP_STORIES = PATHS.ROOT + 'topstories/';
+PATHS.ITEM = PATHS.ROOT + 'item/';
 
-API.ROOT = 'https://hacker-news.firebaseio.com/v0/';
+class API {
+  constructor($firebase) {
+    this._$firebase = $firebase;
+  }
 
-API.TOP_STORIES = API.ROOT + 'topstories/';
+  fetchHomepage() {
+    return this._$firebase(new Firebase(PATHS.TOP_STORIES));
+  }
 
-API.ITEM = API.ROOT + 'item/';
+  fetchItem(itemId) {
+    return this._$firebase(new Firebase(PATHS.ITEM + itemId));
+  }
+}
+API.$inject = ['$firebase'];
 
-angular.module('hn-ng').factory('API', function() {
-  return API;
-});
-})();
+angular.module('hn-ng').service('API', API);

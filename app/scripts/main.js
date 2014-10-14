@@ -8,3 +8,4 @@ angular.module('hn-ng', [
 import './filters/domain';
 import './services/api';
 import './controllers/homepage';
+import '../components/hn-item/hn-item';

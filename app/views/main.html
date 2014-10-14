@@ -1,61 +1,11 @@
-<center ng-controller="HomepageController as home">
-  <table border="0" cellpadding="0" cellspacing="0" width="85%" bgcolor="#F6F6EF">
-    <tbody>
-      <tr ng-include="'/views/header-bar.html'"></tr>
-      <tr style="height:10px">
-        <td></td>
-      </tr>
+<div class="homepage" ng-controller="HomepageController as home">
+  <div ng-include="'/views/header-bar.html'"></div>
 
-      <tr>
-        <td>
-          <table border="0" cellpadding="0" cellspacing="0">
-            <tbody>
+  <ol>
+    <li class="homepage-hnItem" ng-repeat="item in home.items">
+      <hn-item item="item"></hn-item>
+    </li>
+  </ol>
 
-              <tr ng-repeat-start="item in home.items">
-                <td align="right" valign="top" class="title">{{$index + 1}}.</td>
-
-                <td>
-                  <center>
-                    <a ng-attr-id="up_{{item.id}}" ng-attr-href=
-                    "https://news.ycombinator.com/vote?for={{item.id}}&amp;dir=up&amp;whence=%6e%65%77%73" ng-attr-name=
-                    "up_{{item.id}}"></a>
-
-                    <div class="votearrow" title="upvote"></div><span ng-attr-id=
-                    "down_{{item.id}}"></span>
-                  </center>
-                </td>
-
-                <td class="title"><a ng-href="{{item.url}}">{{item.title}}</a>
-                <span class="comhead">({{item.url | domain}})</span></td>
-              </tr>
-
-              <tr>
-                <td colspan="2"></td>
-
-                <td class="subtext"><span id="score_8422599">{{item.score}} points</span> by
-                <a ng-href="https://news.ycombinator.com/user?id={{item.by}}">{{item.by}}</a> <span am-time-ago="item.time * 1000"></span> | <a ng-href=
-                "https://news.ycombinator.com/item?id={{item.id}}">n/a comments</a></td>
-              </tr>
-
-              <tr style="height:5px" ng-repeat-end>
-                <td></td>
-              </tr>
-
-              <tr style="height:10px">
-                <td></td>
-              </tr>
-
-              <tr>
-                <td colspan="2"></td>
-
-                <td class="title"><a href="https://news.ycombinator.com/news?p=2" rel="nofollow">More</a></td>
-              </tr>
-            </tbody>
-          </table>
-        </td>
-      </tr>
-
-      <tr ng-include="'/views/footer-bar.html'"></tr>
-    </tbody>
-  </table>
-</center>
+  <div ng-include="'/views/footer-bar.html'"></div>
+</div>
