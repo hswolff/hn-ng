@@ -1,4 +1,4 @@
-<div class="hnItem-loading spinner" ng-if="!itemData">
+<div class="hnItem-loading spinner" ng-if="!item.data">
   <div class="rect1"></div>
   <div class="rect2"></div>
   <div class="rect3"></div>
@@ -7,12 +7,12 @@
 </div>
 
 <header>
-  <a class="hnItem-title" ng-href="{{itemData.url}}">{{itemData.title}}</a>
-  <span class="comhead" ng-show="itemData.url">({{itemData.url | domain}})</span>
+  <a class="hnItem-title" ng-href="{{item.data.url}}">{{item.data.title}}</a>
+  <span class="comhead" ng-show="item.data.url">({{item.data.url | domain}})</span>
 </header>
-<aside ng-hide="!itemData">
-  <span>{{itemData.score}} points</span> by
-  <a ng-href="https://news.ycombinator.com/user?id={{itemData.by}}">{{itemData.by}}</a>
-  <span am-time-ago="itemData.time * 1000"></span> |
-  <a ng-href="https://news.ycombinator.com/item?id={{itemData.id}}">comments</a>
+<aside ng-hide="!item.data">
+  <span>{{item.data.score}} points</span> by
+  <a ng-href="https://news.ycombinator.com/user?id={{item.data.by}}">{{item.data.by}}</a>
+  <span am-time-ago="item.data.time * 1000"></span> |
+  <a ui-sref="item({itemId: item.data.id})">comments</a>
 </aside>

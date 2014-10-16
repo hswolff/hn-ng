@@ -1,10 +1,10 @@
 'use strict';
 
 class HomepageController {
-  constructor($firebase, API) {
+  constructor(API) {
     this.items = API.fetchHomepage().$asArray();
   }
 }
-HomepageController.$inject = ['$firebase', 'API'];
+HomepageController.$inject = ['API'];
 
 angular.module('hn-ng').controller('HomepageController', HomepageController);

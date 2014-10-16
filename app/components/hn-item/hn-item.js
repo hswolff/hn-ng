@@ -4,7 +4,7 @@ class hnItem {
   constructor($scope, $element, $attrs, API) {
     $attrs.$addClass('hnItem');
 
-    API.fetchItem(this.item.$value).$asObject().$bindTo($scope, 'itemData');
+    API.fetchItem(this.itemId).$asObject().$bindTo($scope, 'item.data');
   }
 }
 hnItem.$inject = ['$scope', '$element', '$attrs', 'API'];
@@ -14,7 +14,7 @@ angular.module('hn-ng').directive('hnItem', () => {
     templateUrl: '/components/hn-item/hn-item.html',
     restrict: 'E',
     scope: {
-      item: '='
+      itemId: '='
     },
     controller: hnItem,
     controllerAs: 'item',

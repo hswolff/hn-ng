@@ -1,9 +1,6 @@
 'use strict';
 
-var PATHS = {};
-PATHS.ROOT = 'https://hacker-news.firebaseio.com/v0/';
-PATHS.TOP_STORIES = PATHS.ROOT + 'topstories/';
-PATHS.ITEM = PATHS.ROOT + 'item/';
+var connection = new Firebase('https://hacker-news.firebaseio.com/v0/');
 
 class API {
   constructor($firebase) {
@@ -11,11 +8,11 @@ class API {
   }
 
   fetchHomepage() {
-    return this._$firebase(new Firebase(PATHS.TOP_STORIES));
+    return this._$firebase(connection.child('topstories/'));
   }
 
   fetchItem(itemId) {
-    return this._$firebase(new Firebase(PATHS.ITEM + itemId));
+    return this._$firebase(connection.child('item/' + itemId));
   }
 }
 API.$inject = ['$firebase'];

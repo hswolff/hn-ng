@@ -1,11 +1,5 @@
-<div class="homepage">
-  <div ng-include="'/views/header-bar.html'"></div>
-
-  <ol>
-    <li class="homepage-hnItem" ng-repeat="item in home.items">
-      <hn-item item="item"></hn-item>
-    </li>
-  </ol>
-
-  <div ng-include="'/views/footer-bar.html'"></div>
-</div>
+<ol>
+  <li class="homepage-hnItem" ng-repeat="item in home.items">
+    <hn-item item-id="item.$value"></hn-item>
+  </li>
+</ol>
