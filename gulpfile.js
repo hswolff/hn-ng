@@ -218,7 +218,7 @@ gulp.task('watch', ['connect', 'serve', 'watchify'], function () {
     gulp.watch('bower.json', ['wiredep']);
 });
 
-gulp.task('deploy', ['build'], function (cb) {
+gulp.task('deploy', ($.util.env.build === false ? [] : ['build']), function (cb) {
     gulp.src('dist')
         .pipe($.subtree())
         .on('end', function() {
