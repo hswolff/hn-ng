@@ -4,7 +4,18 @@ class hnItem {
   constructor($scope, $element, $attrs, API) {
     $attrs.$addClass('hnItem');
 
-    API.fetchItem(this.itemId).$asObject().$bindTo($scope, 'item.data');
+    var firebasePromise;
+
+    // Watch for changes and update our synched item.
+    $scope.$watch(() => this.itemId, () => {
+      // If we already have a firebase connection destroy it
+      // so we can re-bind it.
+      if (firebasePromise) {
+        firebasePromise.$destroy();
+      }
+      firebasePromise = API.fetchItem(this.itemId).$asObject();
+      firebasePromise.$bindTo($scope, 'item.data');
+    });
   }
 }
 hnItem.$inject = ['$scope', '$element', '$attrs', 'API'];

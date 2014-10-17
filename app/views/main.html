@@ -1,5 +1,5 @@
 <ol>
-  <li class="homepage-hnItem" ng-repeat="item in home.items">
+  <li class="homepage-hnItem" ng-repeat="item in home.itemIds | limitTo:30">
     <hn-item item-id="item.$value"></hn-item>
   </li>
 </ol>
