@@ -74,7 +74,7 @@ gulp.task('html', ['styles', 'scripts-build'], function () {
         .pipe($.size());
 });
 
-gulp.task('scripts-and-templates', ['html', 'ngtemplates'], function () {
+gulp.task('scripts-and-templates', ['html', 'scripts-build', 'ngtemplates'], function () {
     return gulp.src([
             '.tmp/main.js',
             '.tmp/templates.js'
