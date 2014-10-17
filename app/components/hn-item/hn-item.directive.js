@@ -20,7 +20,7 @@ class hnItem {
 }
 hnItem.$inject = ['$scope', '$element', '$attrs', 'API'];
 
-angular.module('hn-ng').directive('hnItem', () => {
+export default ['hnItem', () => {
   return {
     templateUrl: '/components/hn-item/hn-item.html',
     restrict: 'E',
@@ -31,4 +31,4 @@ angular.module('hn-ng').directive('hnItem', () => {
     controllerAs: 'item',
     bindToController: true
   };
-});
+}];

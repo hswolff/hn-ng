@@ -4,7 +4,7 @@
  *   console.log($filter('domain')(domain)); // locomotivecms.com
  * @return {string}
  */
-angular.module('hn-ng').filter('domain', function() {
+export default ['domain', function() {
   'use strict';
 
   return function(input) {
@@ -14,4 +14,4 @@ angular.module('hn-ng').filter('domain', function() {
     var domain = input.split('/')[2];
     return domain ? domain.replace('www.', '') : domain;
   };
-});
+}];

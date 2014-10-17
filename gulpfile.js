@@ -16,17 +16,17 @@ var notifier = require('node-notifier');
 var $ = require('gulp-load-plugins')();
 
 gulp.task('styles', function () {
-    return gulp.src('app/styles/main.less')
+    return gulp.src('app/main.less')
         .pipe($.sourcemaps.init())
         .pipe($.less())
         .pipe($.autoprefixer('last 1 version'))
         .pipe($.sourcemaps.write('.'))
-        .pipe(gulp.dest('.tmp/styles'))
+        .pipe(gulp.dest('.tmp'))
         .pipe($.size());
 });
 
 gulp.task('scripts-jshint', function () {
-    return gulp.src('app/scripts/**/*.js')
+    return gulp.src(['app/**/*.js', '!app/bower_components/**/*.js'])
         .pipe($.jshint())
         .pipe($.jshint.reporter(require('jshint-stylish')))
         .pipe($.size());
@@ -40,10 +40,10 @@ gulp.task('scripts-build', ['scripts-jshint'], function() {
         .bundle();
     });
 
-    gulp.src(['./app/scripts/main.js'])
+    gulp.src(['./app/main.js'])
         .pipe(browserified)
         .pipe($.uglify())
-        .pipe(gulp.dest('./.tmp/scripts/'));
+        .pipe(gulp.dest('./.tmp/'));
 });
 
 gulp.task('ngtemplates', function () {
@@ -52,7 +52,7 @@ gulp.task('ngtemplates', function () {
             module: 'hn-ng',
             root: '/',
         }))
-        .pipe(gulp.dest('.tmp/views'))
+        .pipe(gulp.dest('.tmp'))
         .pipe($.size());
 });
 
@@ -76,11 +76,11 @@ gulp.task('html', ['styles', 'scripts-build'], function () {
 
 gulp.task('scripts-and-templates', ['html', 'ngtemplates'], function () {
     return gulp.src([
-            '.tmp/scripts/main.js',
-            '.tmp/views/templates.js'
+            '.tmp/main.js',
+            '.tmp/templates.js'
         ])
         .pipe($.concat('main.js'))
-        .pipe(gulp.dest('dist/scripts/'))
+        .pipe(gulp.dest('dist/'))
         .pipe($.size());
 });
 
@@ -143,11 +143,11 @@ gulp.task('serve', ['connect', 'styles'], function () {
 gulp.task('wiredep', function () {
     var wiredep = require('wiredep').stream;
 
-    gulp.src('app/styles/*.less')
+    gulp.src('app/*.less')
         .pipe(wiredep({
             directory: 'app/bower_components'
         }))
-        .pipe(gulp.dest('app/styles'));
+        .pipe(gulp.dest('app'));
 
     gulp.src('app/*.html')
         .pipe(wiredep({
@@ -157,7 +157,7 @@ gulp.task('wiredep', function () {
 });
 
 gulp.task('watchify', function() {
-  var bundler = watchify(browserify('./app/scripts/main.js', _.extend({
+  var bundler = watchify(browserify('./app/main.js', _.extend({
     debug: true
   }, watchify.args)));
 
@@ -191,7 +191,7 @@ gulp.task('watchify', function() {
         broken = false;
       })
       .pipe(source('main.js'))
-      .pipe(gulp.dest('./.tmp/scripts/'));
+      .pipe(gulp.dest('./.tmp/'));
   }
 
   bundler.on('update', rebundle);
@@ -206,14 +206,14 @@ gulp.task('watch', ['connect', 'serve', 'watchify'], function () {
 
     gulp.watch([
         'app/**/*.html',
-        '.tmp/styles/**/*.css',
-        '.tmp/scripts/**/*.js',
+        '.tmp/**/*.css',
+        '.tmp/**/*.js',
         'app/images/**/*'
     ]).on('change', function (file) {
         server.changed(file.path);
     });
 
-    gulp.watch('app/styles/**/*.less', ['styles']);
+    gulp.watch('app/**/*.less', ['styles']);
     gulp.watch('app/images/**/*', ['images']);
     gulp.watch('bower.json', ['wiredep']);
 });
