@@ -1,5 +1,9 @@
-<ol>
-  <li class="homepage-hnItem" ng-repeat="item in home.itemIds | limitTo:30">
-    <hn-item item-id="item.$value"></hn-item>
-  </li>
-</ol>
+<div class="homepage">
+  <ol ng-attr-start="{{homepage.pageSize * homepage.currentPage + 1}}">
+    <li ng-repeat="item in homepage.itemIds | page:homepage.currentPage:homepage.pageSize">
+      <hn-item item-id="item.$value"></hn-item>
+    </li>
+  </ol>
+
+  <paginate-control page="homepage.currentPage" page-size="homepage.pageSize" total-items="homepage.itemIds.length"></paginate-control>
+</div>

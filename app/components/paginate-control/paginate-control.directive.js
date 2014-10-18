@@ -6,7 +6,7 @@ class paginateControl {
 
     this.show = {};
 
-    $scope.$watch(() => this.page, this.calculateState.bind(this));
+    $scope.$watch(() => this.page + this.totalItems, this.calculateState.bind(this));
   }
 
   calculateState() {

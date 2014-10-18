@@ -18,6 +18,8 @@ class HomepageController {
     function sortItems(a, b) {
       return parseInt(a.$id, 10) - parseInt(b.$id, 10);
     }
+
+    this.pageSize = 30;
   }
 }
 HomepageController.$inject = ['$scope', 'API'];

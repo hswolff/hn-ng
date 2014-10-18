@@ -9,7 +9,7 @@ export default function(m) {
     $stateProvider.state('homepage', {
       url: '/',
       controller: 'HomepageController',
-      controllerAs: 'home',
+      controllerAs: 'homepage',
       templateUrl: '/homepage/homepage.html'
     });
   });
