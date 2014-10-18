@@ -2,9 +2,10 @@
 import filter from './domain.filter';
 import directive from './hn-item.directive';
 
-var m = angular.module('hnItem', []);
+var moduleName = 'hnItem';
+var m = angular.module(moduleName, []);
 
 filter(m);
 directive(m);
 
-export default 'hnItem';
+export default moduleName;
