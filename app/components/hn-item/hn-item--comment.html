@@ -1,0 +1,11 @@
+<div class="hnItem--comment">
+  <header>
+    <a ui-sref="user({userId: item.data.by})" class="hnItem-author">{{item.data.by}}</a>
+    <span am-time-ago="item.data.time * 1000"></span> |
+    <a ui-sref="item({itemId: item.data.id})">link</a>
+  </header>
+  <section class="hnItem--coment-content" ng-hide="!item.data" ng-bind-html="item.data.text"></section>
+  <div class="hnItem--comment-children" ng-if="!item.hideChildren">
+    <hn-item ng-repeat="kidId in item.data.kids" item-id="kidId"></hn-item>
+  </div>
+</div>

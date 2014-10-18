@@ -4,6 +4,10 @@ class hnItem {
   constructor($scope, $element, $attrs, API) {
     $attrs.$addClass('hnItem');
 
+    this.hideChildren = angular.isDefined(this.hideChildren) ?
+      this.hideChildren === 'false' :
+      true;
+
     var firebasePromise;
 
     // Watch for changes and update our synched item.
@@ -26,7 +30,8 @@ export default function(m) {
       templateUrl: '/components/hn-item/hn-item.html',
       restrict: 'E',
       scope: {
-        itemId: '='
+        itemId: '=',
+        hideChildren: '@?'
       },
       controller: hnItem,
       controllerAs: 'item',

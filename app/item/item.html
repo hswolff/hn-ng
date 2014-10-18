@@ -1,5 +1,7 @@
-<hn-item item-id="item.itemId"></hn-item>
+<div class="itemDetail">
+  <hn-item item-id="item.itemId" hide-children="true"></hn-item>
 
-<ul>
-  <li ng-repeat="kid in item.data.kids">{{kid}}</li>
-</ul>
+  <div class="itemDetail-item" ng-repeat="kidId in item.data.kids">
+    <hn-item item-id="kidId"></hn-item>
+  </div>
+</div>

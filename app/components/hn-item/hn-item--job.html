@@ -1,0 +1,9 @@
+<div class="hnItem--story">
+  <header>
+    <a class="hnItem-title" ng-href="{{item.data.url}}">{{item.data.title}}</a>
+    <span class="comhead" ng-show="item.data.url">({{item.data.url | domain}})</span>
+  </header>
+  <section ng-hide="!item.data">
+    <span am-time-ago="item.data.time * 1000"></span>
+  </section>
+</div>

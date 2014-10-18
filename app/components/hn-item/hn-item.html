@@ -6,13 +6,6 @@
   <div class="rect5"></div>
 </div>
 
-<header>
-  <a class="hnItem-title" ng-href="{{item.data.url}}">{{item.data.title}}</a>
-  <span class="comhead" ng-show="item.data.url">({{item.data.url | domain}})</span>
-</header>
-<aside ng-hide="!item.data">
-  <span>{{item.data.score}} points</span> by
-  <a ui-sref="user({userId: item.data.by})">{{item.data.by}}</a>
-  <span am-time-ago="item.data.time * 1000"></span> |
-  <a ui-sref="item({itemId: item.data.id})">comments</a>
-</aside>
+<div class="hnItem-container"
+  ng-if="item.data"
+  ng-include="'/components/hn-item/hn-item--' + item.data.type + '.html'"></div>
