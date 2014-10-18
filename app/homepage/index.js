@@ -1,10 +1,16 @@
 'use strict';
 
-import './homepage.controller';
+import homepageController from './homepage.controller';
 
-export var state = ['homepage', {
-  url: '/',
-  controller: 'HomepageController',
-  controllerAs: 'home',
-  templateUrl: '/homepage/homepage.html'
-}];
+export default function(m) {
+  homepageController(m);
+
+  m.config(($stateProvider) => {
+    $stateProvider.state('homepage', {
+      url: '/',
+      controller: 'HomepageController',
+      controllerAs: 'home',
+      templateUrl: '/homepage/homepage.html'
+    });
+  });
+}

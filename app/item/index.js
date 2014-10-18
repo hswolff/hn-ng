@@ -1,10 +1,16 @@
 'use strict';
 
-import './item.controller';
+import itemController from './item.controller';
 
-export var state = ['item', {
-  url: '/item/:itemId',
-  controller: 'ItemController',
-  controllerAs: 'item',
-  templateUrl: '/item/item.html'
-}];
+export default function(m) {
+  itemController(m);
+
+  m.config(($stateProvider) => {
+    $stateProvider.state('item', {
+      url: '/item/:itemId',
+      controller: 'ItemController',
+      controllerAs: 'item',
+      templateUrl: '/item/item.html'
+    });
+  });
+}

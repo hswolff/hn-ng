@@ -1,10 +1,10 @@
 'use strict';
+import filter from './domain.filter';
+import directive from './hn-item.directive';
 
 var m = angular.module('hnItem', []);
+
+filter(m);
+directive(m);
+
 export default 'hnItem';
-
-import filter from './domain.filter';
-m.filter.apply(m, filter);
-
-import directive from './hn-item.directive';
-m.directive.apply(m, directive);

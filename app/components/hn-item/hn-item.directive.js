@@ -20,15 +20,17 @@ class hnItem {
 }
 hnItem.$inject = ['$scope', '$element', '$attrs', 'API'];
 
-export default ['hnItem', () => {
-  return {
-    templateUrl: '/components/hn-item/hn-item.html',
-    restrict: 'E',
-    scope: {
-      itemId: '='
-    },
-    controller: hnItem,
-    controllerAs: 'item',
-    bindToController: true
-  };
-}];
+export default function(m) {
+  m.directive('hnItem', () => {
+    return {
+      templateUrl: '/components/hn-item/hn-item.html',
+      restrict: 'E',
+      scope: {
+        itemId: '='
+      },
+      controller: hnItem,
+      controllerAs: 'item',
+      bindToController: true
+    };
+  });
+}

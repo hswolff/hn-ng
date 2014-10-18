@@ -17,4 +17,7 @@ class API {
 }
 API.$inject = ['$firebase'];
 
-angular.module('hn-ng').service('API', API);
+export default function(m) {
+  m.service('API', API);
+}
+

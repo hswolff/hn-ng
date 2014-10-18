@@ -9,4 +9,6 @@ class ItemController {
 }
 ItemController.$inject = ['$scope', 'API', '$stateParams'];
 
-angular.module('hn-ng').controller('ItemController', ItemController);
+export default function(m) {
+  m.controller('ItemController', ItemController);
+}

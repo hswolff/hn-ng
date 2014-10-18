@@ -1,28 +1,26 @@
-import hnItem from './components/hn-item/';
+import hnItemModuleName from './components/hn-item/';
 
-var dependencies = [
+import apiService from './services/api.service';
+
+import homepage from './homepage';
+import item from './item';
+
+var m = angular.module('hn-ng', [
   'ui.router',
   'ngAnimate',
   'firebase',
-  'angularMoment'
-];
+  'angularMoment',
+  hnItemModuleName
+]);
 
-dependencies.push(hnItem);
-
-angular.module('hn-ng', dependencies);
-
-import './services/api.service';
-import {state as homepageState} from './homepage';
-import {state as itemState} from './item';
-
-angular.module('hn-ng').config(function($stateProvider, $urlRouterProvider) {
+m.config($urlRouterProvider => {
   'use strict';
-
-  $urlRouterProvider
-    .otherwise('/');
-
-  // Dynamically create all states.
-  [homepageState, itemState].forEach((state) => {
-    $stateProvider.state.apply($stateProvider, state);
-  });
+  $urlRouterProvider.otherwise('/');
 });
+
+// Services
+apiService(m);
+
+// Views
+homepage(m);
+item(m);

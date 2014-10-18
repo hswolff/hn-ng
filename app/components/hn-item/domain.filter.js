@@ -4,14 +4,16 @@
  *   console.log($filter('domain')(domain)); // locomotivecms.com
  * @return {string}
  */
-export default ['domain', function() {
+export default function(m) {
   'use strict';
 
-  return function(input) {
-    if (!input) {
-      return '';
-    }
-    var domain = input.split('/')[2];
-    return domain ? domain.replace('www.', '') : domain;
-  };
-}];
+  m.filter('domain', function() {
+    return function(input) {
+      if (!input) {
+        return '';
+      }
+      var domain = input.split('/')[2];
+      return domain ? domain.replace('www.', '') : domain;
+    };
+  });
+}

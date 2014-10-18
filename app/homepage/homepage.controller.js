@@ -22,4 +22,6 @@ class HomepageController {
 }
 HomepageController.$inject = ['$scope', 'API'];
 
-angular.module('hn-ng').controller('HomepageController', HomepageController);
+export default function(m) {
+  m.controller('HomepageController', HomepageController);
+}
