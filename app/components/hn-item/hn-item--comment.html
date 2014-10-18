@@ -5,7 +5,7 @@
     <a ui-sref="item({itemId: item.data.id})">link</a>
   </header>
   <section class="hnItem--coment-content" ng-hide="!item.data" ng-bind-html="item.data.text"></section>
-  <div class="hnItem--comment-children" ng-if="!item.hideChildren">
+  <div class="hnItem--comment-children" ng-if="item.loadChildren">
     <hn-item ng-repeat="kidId in item.data.kids" item-id="kidId"></hn-item>
   </div>
 </div>

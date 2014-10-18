@@ -4,9 +4,9 @@ class hnItem {
   constructor($scope, $element, $attrs, API) {
     $attrs.$addClass('hnItem');
 
-    this.hideChildren = angular.isDefined(this.hideChildren) ?
-      this.hideChildren === 'false' :
-      true;
+    $attrs.$observe('loadChildren', val => {
+      this.loadChildren = val !== 'false';
+    });
 
     var firebasePromise;
 
@@ -30,8 +30,7 @@ export default function(m) {
       templateUrl: '/components/hn-item/hn-item.html',
       restrict: 'E',
       scope: {
-        itemId: '=',
-        hideChildren: '@?'
+        itemId: '='
       },
       controller: hnItem,
       controllerAs: 'item',
