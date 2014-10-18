@@ -9,6 +9,7 @@ import user from './user';
 var m = angular.module('hn-ng', [
   'ui.router',
   'ngAnimate',
+  'ngSanitize',
   'firebase',
   'angularMoment',
   hnItemModuleName
