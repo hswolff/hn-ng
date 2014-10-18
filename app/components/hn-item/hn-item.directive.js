@@ -8,6 +8,12 @@ class hnItem {
       this.loadChildren = val !== 'false';
     });
 
+    $attrs.$observe('topLevel', val => {
+      if (val === 'true') {
+        this.loadChildren = false;
+      }
+    });
+
     var firebasePromise;
 
     // Watch for changes and update our synched item.
@@ -20,6 +26,12 @@ class hnItem {
       firebasePromise = API.fetchItem(this.itemId).$asObject();
       firebasePromise.$bindTo($scope, 'item.data');
     });
+
+    this.hideItem = false;
+  }
+
+  toggleHideItem() {
+    this.hideItem = !this.hideItem;
   }
 }
 hnItem.$inject = ['$scope', '$element', '$attrs', 'API'];
@@ -30,7 +42,9 @@ export default function(m) {
       templateUrl: '/components/hn-item/hn-item.html',
       restrict: 'E',
       scope: {
-        itemId: '='
+        itemId: '=',
+        loadChildren: '@?',
+        topLevel: '@?'
       },
       controller: hnItem,
       controllerAs: 'item',
