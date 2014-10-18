@@ -6,15 +6,7 @@ class UserController {
 
     API.fetchUser($stateParams.userId).$asObject().$bindTo($scope, 'user.data');
 
-    this.currentPage = 0;
-  }
-
-  prevPage() {
-    this.currentPage = Math.max(this.currentPage - 1, 0);
-  }
-
-  nextPage() {
-    this.currentPage = this.currentPage + 1;
+    this.pageSize = 30;
   }
 }
 UserController.$inject = ['$scope', 'API', '$stateParams'];

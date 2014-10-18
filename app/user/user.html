@@ -7,19 +7,11 @@
   <p>
     <a class="u-pointer" ng-click="showSubmissions = !showSubmissions"><u>show submitted stories and comments</u></a>
     <div ng-if="showSubmissions">
-      <p>
-        <span class="u-pointer" ng-click="user.prevPage()"><<</span>
-        <span>{{user.currentPage}}</span>
-        <span class="u-pointer" ng-click="user.nextPage()">>></span>
-      </p>
-      <div class="itemDetail-item" ng-repeat="itemId in user.data.submitted | page:user.currentPage:30">
+      <paginate-control page="user.currentPage" page-size="user.pageSize" total-items="user.data.submitted.length"></paginate-control>
+      <div class="itemDetail-item" ng-repeat="itemId in user.data.submitted | page:user.currentPage:user.pageSize">
         <hn-item item-id="itemId" load-children="false"></hn-item>
       </div>
-      <p>
-        <span class="u-pointer" ng-click="user.prevPage()"><<</span>
-        <span>{{user.currentPage}}</span>
-        <span class="u-pointer" ng-click="user.nextPage()">>></span>
-      </p>
+      <paginate-control page="user.currentPage" page-size="user.pageSize" total-items="user.data.submitted.length"></paginate-control>
     </div>
   </p>
 

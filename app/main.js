@@ -1,4 +1,5 @@
 import hnItemModuleName from './components/hn-item/';
+import paginateControlName from './components/paginate-control/';
 
 import apiService from './services/api.service';
 
@@ -12,7 +13,8 @@ var m = angular.module('hn-ng', [
   'ngSanitize',
   'firebase',
   'angularMoment',
-  hnItemModuleName
+  hnItemModuleName,
+  paginateControlName
 ]);
 
 m.config($urlRouterProvider => {
