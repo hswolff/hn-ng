@@ -13,7 +13,7 @@
         <span class="u-pointer" ng-click="user.nextPage()">>></span>
       </p>
       <div class="itemDetail-item" ng-repeat="itemId in user.data.submitted | page:user.currentPage:30">
-        <hn-item item-id="itemId" hide-children="true"></hn-item>
+        <hn-item item-id="itemId" load-children="false"></hn-item>
       </div>
       <p>
         <span class="u-pointer" ng-click="user.prevPage()"><<</span>
