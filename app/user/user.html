@@ -1,0 +1,7 @@
+<p>user: {{user.data.id}}</p>
+<p>created: <span am-time-ago="user.data.created * 1000"></span></p>
+<p>karma:  {{user.data.karma}}</p>
+<p>about:  {{user.data.about}}</p>
+
+<p><a ng-href="https://news.ycombinator.com/submitted?id={{user.data.id}}"><u>submissions</u></a></p>
+<p><a ng-href="https://news.ycombinator.com/threads?id={{user.data.id}}"><u>comments</u></a></p>

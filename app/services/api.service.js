@@ -14,6 +14,10 @@ class API {
   fetchItem(itemId) {
     return this._$firebase(connection.child('item/' + itemId));
   }
+
+  fetchUser(userId) {
+    return this._$firebase(connection.child('user/' + userId));
+  }
 }
 API.$inject = ['$firebase'];
 

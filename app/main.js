@@ -4,6 +4,7 @@ import apiService from './services/api.service';
 
 import homepage from './homepage';
 import item from './item';
+import user from './user';
 
 var m = angular.module('hn-ng', [
   'ui.router',
@@ -24,3 +25,4 @@ apiService(m);
 // Views
 homepage(m);
 item(m);
+user(m);

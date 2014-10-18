@@ -12,7 +12,7 @@
 </header>
 <aside ng-hide="!item.data">
   <span>{{item.data.score}} points</span> by
-  <a ng-href="https://news.ycombinator.com/user?id={{item.data.by}}">{{item.data.by}}</a>
+  <a ui-sref="user({userId: item.data.by})">{{item.data.by}}</a>
   <span am-time-ago="item.data.time * 1000"></span> |
   <a ui-sref="item({itemId: item.data.id})">comments</a>
 </aside>
