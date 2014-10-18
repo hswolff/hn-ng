@@ -8,4 +8,4 @@
 
 <div class="hnItem-container"
   ng-if="item.data"
-  ng-include="'/components/hn-item/hn-item--' + item.data.type + '.html'"></div>
+  ng-include="'/components/hn-item/hn-item--' + (item.data.type || 'story') + '.html'"></div>

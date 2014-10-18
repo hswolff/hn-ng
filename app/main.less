@@ -1,6 +1,7 @@
 @import "./components/spinner";
 @import "./components/hn-item/hn-item";
 @import "./item/item";
+@import "./user/user";
 
 // hn styles to port over
 input    { font-family:Courier; font-size:10pt; color:#000000; }
@@ -40,6 +41,10 @@ pre:hover {overflow:auto}
  * Real Styles
  */
 
+.u-pointer {
+  cursor: pointer;
+}
+
 body {
   font-family: Verdana, Geneva, sans-serif;
   font-size: 10pt;
@@ -51,10 +56,6 @@ body {
   width: 85%;
   max-width: 1280px;
   background: #F6F6EF;
-}
-
-.homepage-hnItem {
-  margin: 10px 0;
 }
 
 .headerBar {
